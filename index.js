@@ -76,8 +76,8 @@ function  getMousePos(canvas, evt) {
 
 
 function download() {
-    tileCanvas.toBlob(function(blob) {
-        saveAs(blob, "myIMG.png");
+    mapCanvas.toBlob(function(blob) {
+        saveAs(blob, "map.png");
     });
 }
 
