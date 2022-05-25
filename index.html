@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="FileSaver.min.js"></script>
+    <script src="canvas-toBlob.js"></script>
+  </head>
+
+  <body>
+    <div id="esquerda">
+      <div id="esquerdaSuperior">
+        <div id="canvasSize">
+          <h2>Canvas Size</h2>
+          <div id="sizeInputs">
+            <label for="mapCanvasW">Width:</label><br>
+            <input type="text" id="mapCanvasW" name="mapCanvasW"><br>
+            <label for="mapCanvasH">Height:</label><br>
+            <input type="text" id="mapCanvasH" name="mapCanvasH"><br>
+            <button type="submit">Submit</button>
+          </div>
+        </div>
+        <div id="submitFiles">
+          <h2>Use image as Bottom Layer</h2>
+          <form action="/action_page.php">
+            <input type="file" id="myFile" name="filename">
+            <input type="submit">
+          </form>
+          <h2>Use image as Top Layer</h2>
+          <form action="/action_page.php">
+            <input type="file" id="myFile" name="filename">
+            <input type="submit">
+          </form>
+        </div>
+        <div id="drawSettings">
+          <div id="drawButtons">
+            <h2 style="border:1px solid #000000;">D</h2>
+            <h2 style="border:1px solid #000000;">D</h2>
+          </div>
+          <form action="/action_page.php">
+            <input type="radio" id="html" name="fav_language" value="HTML">
+            <label for="html">Bottom Layer</label><br>
+            <input type="radio" id="css" name="fav_language" value="CSS">
+            <label for="css">Top Layer</label><br>
+            <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+            <label for="javascript">Both (erase only)</label>
+          </form>
+        </div>
+      </div>
+      <div id="esquerdaCanvas">
+        <canvas id="mapCanvas" width="1600px" height="800px"></canvas>
+      </div>
+      <div id="esquerdaInferior">
+        <button>Export Bottom Layer</button>
+        <button>Export Top Layer</button>
+        <button>Export Full Map</button>
+      </div>
+    </div> 
+    <div id="direita">
+      <form action="/action_page.php">
+        <input type="file" id="myFile" name="filename">
+        <input type="submit">
+      </form>
+      <canvas id="tileCanvas" width="192px" height="400px"></canvas>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
