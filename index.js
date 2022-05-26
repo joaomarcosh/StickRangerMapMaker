@@ -14,6 +14,8 @@ let selectedTile;
 let mouseDown = false;
 let alternateGrid = false;
 let currentCTX = mapCTX;
+let currentButton = "draw";
+let emptyCanvasContent = mapCTX.getImageData(0, 0, 16, 16);
 let baseTileSet = new Image();
 baseTileSet.src = "./mt3.gif";
 
@@ -56,7 +58,14 @@ function loadFile(event,canvas) {
             selectedTile = tileCTX.getImageData(0, 0, 16, 16);
             drawRedBox(0,0,tileCTX);
         }
+        document.getElementById("bottomFile").value ="";
+        document.getElementById("topFile").value ="";
     }
+}
+
+function setButton() {
+    if (document.getElementById("drawRadio").checked) currentButton="draw"
+    else if (document.getElementById("deleteRadio").checked) currentButton="delete"
 }
 
 function changeCanvasSize() {
@@ -94,13 +103,20 @@ function pick(event) {
 
 function place(event) {
     let {x,y} = getMousePos(gridCanvas,event);
-    currentCTX.putImageData(selectedTile,x,y)
+    if (currentCTX!="both" && currentButton!="delete") {
+        currentCTX.putImageData(selectedTile,x,y);
+    } else if (currentCTX!="both" && currentButton==="delete") {
+        currentCTX.putImageData(emptyCanvasContent,x,y);
+    } else if (currentCTX==="both" && currentButton==="delete") {
+        mapCTX.putImageData(emptyCanvasContent,x,y);
+        topCTX.putImageData(emptyCanvasContent,x,y);
+    }
 }
 
 function setCurrentCanvas() {
     if (document.getElementById("bottomRadio").checked) currentCTX=mapCTX
     else if (document.getElementById("topRadio").checked) currentCTX=topCTX
-    else if (document.getElementById("bothRadio").checked) currentCTX=mapCTX
+    else if (document.getElementById("bothRadio").checked) currentCTX="both"
 }
 
 function changeGrid() {

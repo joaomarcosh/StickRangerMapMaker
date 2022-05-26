@@ -30,21 +30,23 @@
         </div>
         <div id="drawSettings">
           <div id="drawButtons">
-            <h2 style="border:1px solid #000000;">D</h2>
-            <h2 style="border:1px solid #000000;">D</h2>
+            <input type="radio" id="drawRadio" name="buttonRadio" checked="checked" onclick="setButton()">
+            <label for="topRadio">Draw</label><br>
+            <input type="radio" id="deleteRadio" name="buttonRadio" onclick="setButton()">
+            <label for="bothRadio">Erase</label>
           </div>
-          <input type="radio" id="bottomRadio" name="buttonRadio" value="bottomRadio" checked="checked" onclick="setCurrentCanvas()">
+          <input type="radio" id="bottomRadio" name="settingRadio" checked="checked" onclick="setCurrentCanvas()">
           <label for="bottomRadio">Bottom Layer</label><br>
-          <input type="radio" id="topRadio" name="buttonRadio" value="topRadio" onclick="setCurrentCanvas()">
+          <input type="radio" id="topRadio" name="settingRadio" onclick="setCurrentCanvas()">
           <label for="topRadio">Top Layer</label><br>
-          <input type="radio" id="bothRadio" name="buttonRadio" value="bothRadio" onclick="setCurrentCanvas()">
+          <input type="radio" id="bothRadio" name="settingRadio" onclick="setCurrentCanvas()">
           <label for="bothRadio">Both (erase only)</label>
         </div>
       </div>
       <div id="esquerdaCanvas">
-        <canvas id="mapCanvas" width="992px" height="320px" onclick="console.log('bottom')"></canvas>
-        <canvas id="topCanvas" width="992px" height="320px" onclick="console.log('top')"></canvas>
-        <canvas id="gridCanvas" width="992px" height="320px" onclick="console.log('grid')"></canvas>
+        <canvas id="mapCanvas" width="992px" height="320px"></canvas>
+        <canvas id="topCanvas" width="992px" height="320px"></canvas>
+        <canvas id="gridCanvas" width="992px" height="320px"></canvas>
       </div>
       <div id="esquerdaInferior">
         <button onclick="download(mapCanvas)">Export Bottom Layer</button>
@@ -57,6 +59,7 @@
       <input type="checkbox" id="alternateGrid" name="alternateGrid" onclick="changeGrid()"><br>
       <input type="file" accept="image/*" id="tileFile" name="tilefile" onchange="loadFile(event,tileCanvas)">
       <canvas id="tileCanvas" width="192px" height="400px"></canvas>
+      <canvas id="emptyCanvas" width="16px" height="16px" style="display:none"></canvas>
     </div>
     <script src="index.js"></script>
   </body>
