@@ -29,6 +29,11 @@ function loadFile(event,canvas) {
     imageFile.onload = function() {
         canvas.width = canvas.width;
         canvas.getContext("2d").drawImage(imageFile, 0, 0);
+        if (canvas === tileCanvas) {
+            tileCanvasContent = tileCTX.getImageData(0, 0, tileCanvas.width, tileCanvas.height);
+            selectedTile = tileCTX.getImageData(0, 0, 16, 16);
+            drawRedBox(0,0,tileCTX);
+        }
     }
 }
 

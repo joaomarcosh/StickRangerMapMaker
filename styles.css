@@ -55,9 +55,10 @@ body {
 #direita {
   max-height: 70vh;
   max-width: 20vw;
-  overflow: scroll;
+  
 }
 
 #tileCanvas {
   border:1px solid #000000;
+  overflow: scroll;
 }
