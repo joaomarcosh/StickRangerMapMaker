@@ -34,7 +34,7 @@ body {
 
 #mapCanvas {
   border:1px solid #000000;
-  position: absolute;
+  
   top: 0;
   left: 0;
 }
@@ -48,6 +48,7 @@ body {
 
 #gridCanvas {
   border:1px solid #000000;
+  position: absolute;
   top: 0;
   left: 0;
 }

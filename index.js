@@ -12,6 +12,7 @@ let topCanvasContent;
 let gridCanvasContent;
 let selectedTile;
 let mouseDown = false;
+let alternateGrid = false;
 let currentCTX = mapCTX;
 let baseTileSet = new Image();
 baseTileSet.src = "./mt3.gif";
@@ -22,6 +23,27 @@ baseTileSet.onload = function() {
     selectedTile = tileCTX.getImageData(0, 0, 16, 16);
     drawRedBox(0,0,tileCTX);
 };
+
+tileCanvas.addEventListener('click', function(event) {
+    pick(event);
+});
+
+gridCanvas.addEventListener('mousedown', function(event) {
+    mouseDown=true;
+    place(event);
+});
+gridCanvas.addEventListener('mouseup', function() {
+    mouseDown=false;
+});
+gridCanvas.addEventListener('mousemove', function(event) {
+    if (mouseDown) {
+        place(event);
+    }
+    let {x,y} = getMousePos(gridCanvas,event);
+    gridCanvas.width = gridCanvas.width;
+    gridCTX.putImageData(gridCanvasContent,0,0);
+    drawRedBox(x,y,gridCTX);
+});
 
 function loadFile(event,canvas) {
     let imageFile = new Image();
@@ -71,7 +93,7 @@ function pick(event) {
 }
 
 function place(event) {
-    let {x,y} = getMousePos(mapCanvas,event);
+    let {x,y} = getMousePos(gridCanvas,event);
     currentCTX.putImageData(selectedTile,x,y)
 }
 
@@ -79,38 +101,28 @@ function setCurrentCanvas() {
     if (document.getElementById("bottomRadio").checked) currentCTX=mapCTX
     else if (document.getElementById("topRadio").checked) currentCTX=topCTX
     else if (document.getElementById("bothRadio").checked) currentCTX=mapCTX
-    else console.log("something is fucked up!")
 }
 
-tileCanvas.addEventListener('click', function(event) {
-    pick(event);
-});
-
-topCanvas.addEventListener('mousedown', function(event) {
-    mouseDown=true;
-    place(event);
-});
-topCanvas.addEventListener('mouseup', function() {
-    mouseDown=false;
-});
-topCanvas.addEventListener('mousemove', function(event) {
-    if (mouseDown) {
-        place(event);
-    }
-    let {x,y} = getMousePos(topCanvas,event);
-    gridCanvas.width = gridCanvas.width;
-    gridCTX.putImageData(gridCanvasContent,0,0);
-    drawRedBox(x,y,gridCTX);
-});
+function changeGrid() {
+    alternateGrid = !alternateGrid;
+    drawGrid();
+}
 
 function  getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for x
-      scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for y
-  
-    return {
-      x: Math.floor(Math.trunc((evt.clientX - rect.left) * scaleX)/16)*16,   // scale mouse coordinates after they have
-      y: Math.floor(Math.trunc((evt.clientY - rect.top) * scaleY)/16)*16     // been adjusted to be relative to element Math.floor(x/16)*16;
+    let rect = canvas.getBoundingClientRect(); // abs. size of element
+    let scaleX = canvas.width / rect.width;    // relationship bitmap vs. element for x
+    let scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for y
+    
+    if (alternateGrid && canvas===gridCanvas) {
+        return {
+            x: Math.floor((Math.floor((evt.clientX - rect.left) * scaleX)+8)/16)*16-8,   // scale mouse coordinates after they 
+            y: Math.floor((Math.floor((evt.clientY - rect.top) * scaleY)+8)/16)*16-8     // been adjusted to be relative
+        }
+    } else {
+        return {
+            x: Math.floor(Math.trunc((evt.clientX - rect.left) * scaleX)/16)*16,   // scale mouse coordinates after they have
+            y: Math.floor(Math.trunc((evt.clientY - rect.top) * scaleY)/16)*16     // been adjusted to be relative to element
+        }
     }
 }
 
@@ -132,17 +144,31 @@ function drawRedBox(x,y,context,color="#FF0000") {
 }
 
 function drawGrid() {
+    gridCanvas.width = gridCanvas.width;
     gridCTX.strokeStyle = "#00000020";
-    for (x=16;x<gridCanvas.width;x+=16) {
-        gridCTX.moveTo(x-0.5,0.5);
-        gridCTX.lineTo(x-0.5,gridCanvas.height-0.5);
+    if (!alternateGrid) {
+        for (x=16;x<gridCanvas.width;x+=16) {
+            gridCTX.moveTo(x-0.5,0.5);
+            gridCTX.lineTo(x-0.5,gridCanvas.height-0.5);
+        }
+        for (y=16;y<gridCanvas.height;y+=16) {
+            gridCTX.moveTo(0.5,y-0.5);
+            gridCTX.lineTo(gridCanvas.width-0.5,y-0.5);
+        }
+        gridCTX.stroke();
+        gridCanvasContent = gridCTX.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
+    } else {
+        for (x=-8;x<gridCanvas.width+8;x+=16) {
+            gridCTX.moveTo(x-0.5,0.5);
+            gridCTX.lineTo(x-0.5,gridCanvas.height-0.5);
+        }
+        for (y=-8;y<gridCanvas.height+8;y+=16) {
+            gridCTX.moveTo(0.5,y-0.5);
+            gridCTX.lineTo(gridCanvas.width-0.5,y-0.5);
+        }
+        gridCTX.stroke();
+        gridCanvasContent = gridCTX.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
     }
-    for (y=16;y<gridCanvas.height;y+=16) {
-        gridCTX.moveTo(0.5,y-0.5);
-        gridCTX.lineTo(gridCanvas.width-0.5,y-0.5);
-    }
-    gridCTX.stroke();
-    gridCanvasContent = gridCTX.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
 }
 
 drawGrid();
