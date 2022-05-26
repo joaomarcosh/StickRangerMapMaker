@@ -2,10 +2,12 @@ let tileCanvas = document.getElementById("tileCanvas");
 let mapCanvas = document.getElementById("mapCanvas");
 let topCanvas = document.getElementById("topCanvas");
 let gridCanvas = document.getElementById("gridCanvas");
+let finalCanvas = document.getElementById("finalCanvas");
 let tileCTX = tileCanvas.getContext("2d");
 let mapCTX = mapCanvas.getContext("2d");
 let topCTX = topCanvas.getContext("2d");
 let gridCTX = gridCanvas.getContext("2d");
+let finalCTX = finalCanvas.getContext("2d");
 let tileCanvasContent;
 let mapCanvasContent;
 let topCanvasContent;
@@ -15,7 +17,7 @@ let mouseDown = false;
 let alternateGrid = false;
 let currentCTX = mapCTX;
 let currentButton = "draw";
-let emptyCanvasContent = mapCTX.getImageData(0, 0, 16, 16);
+let emptyTile = mapCTX.getImageData(0, 0, 16, 16);
 let baseTileSet = new Image();
 baseTileSet.src = "./mt3.gif";
 
@@ -80,6 +82,8 @@ function changeCanvasSize() {
         topCanvas.height = Math.ceil(newHeight)*16;
         gridCanvas.width = Math.ceil(newWidth)*16;
         gridCanvas.height = Math.ceil(newHeight)*16;
+        finalCanvas.width = Math.ceil(newWidth)*16;
+        finalCanvas.height = Math.ceil(newHeight)*16;
     } else {
         mapCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
         mapCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
@@ -87,6 +91,8 @@ function changeCanvasSize() {
         topCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
         gridCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
         gridCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
+        finalCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
+        finalCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
     }
     mapCTX.putImageData(mapCanvasContent,0,0);
     topCTX.putImageData(topCanvasContent,0,0);
@@ -106,10 +112,10 @@ function place(event) {
     if (currentCTX!="both" && currentButton!="delete") {
         currentCTX.putImageData(selectedTile,x,y);
     } else if (currentCTX!="both" && currentButton==="delete") {
-        currentCTX.putImageData(emptyCanvasContent,x,y);
+        currentCTX.putImageData(emptyTile,x,y);
     } else if (currentCTX==="both" && currentButton==="delete") {
-        mapCTX.putImageData(emptyCanvasContent,x,y);
-        topCTX.putImageData(emptyCanvasContent,x,y);
+        mapCTX.putImageData(emptyTile,x,y);
+        topCTX.putImageData(emptyTile,x,y);
     }
 }
 
@@ -142,9 +148,30 @@ function  getMousePos(canvas, evt) {
     }
 }
 
+function exportFullMap() {
+    mapCanvasContent = mapCTX.getImageData(0, 0, mapCanvas.width, mapCanvas.height);
+    topCanvasContent = topCTX.getImageData(0, 0, topCanvas.width, topCanvas.height);
+    finalCTX.putImageData(mapCanvasContent,0,0);
+    finalCanvasContent = finalCTX.getImageData(0, 0, finalCanvas.width, finalCanvas.height);
+    drawGrid();
+    arraySize = finalCanvas.width * finalCanvas.height * 4;
+    for (i=0;i<arraySize;i+=4) {
+        if (topCanvasContent.data[i]!==0||topCanvasContent.data[i+1]!==0||topCanvasContent.data[i+2]!==0||topCanvasContent.data[i+3]!==0) {
+            finalCanvasContent.data[i] = topCanvasContent.data[i];
+            finalCanvasContent.data[i+1] = topCanvasContent.data[i+1];
+            finalCanvasContent.data[i+2] = topCanvasContent.data[i+2];
+            finalCanvasContent.data[i+3] = topCanvasContent.data[i+3];
+        }
+    }
+    finalCTX.putImageData(finalCanvasContent,0,0);
+    download(finalCanvas);
+}
+
 function download(canvas) {
     canvas.toBlob(function(blob) {
-        canvas === mapCanvas ? saveAs(blob, "bottom.png") : saveAs(blob, "top.png");
+        if (canvas===mapCanvas) saveAs(blob, "bottom.png")
+        else if (canvas===topCanvas) saveAs(blob, "top.png")
+        else if (canvas===finalCanvas) saveAs(blob, "full.png")
     });
 }
 

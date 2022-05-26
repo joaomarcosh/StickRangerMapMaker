@@ -51,7 +51,7 @@
       <div id="esquerdaInferior">
         <button onclick="download(mapCanvas)">Export Bottom Layer</button>
         <button onclick="download(topCanvas)">Export Top Layer</button>
-        <button onclick="download(mapCanvas)">Export Full Map</button>
+        <button onclick="exportFullMap()">Export Full Map</button>
       </div>
     </div> 
     <div id="direita">
@@ -59,7 +59,7 @@
       <input type="checkbox" id="alternateGrid" name="alternateGrid" onclick="changeGrid()"><br>
       <input type="file" accept="image/*" id="tileFile" name="tilefile" onchange="loadFile(event,tileCanvas)">
       <canvas id="tileCanvas" width="192px" height="400px"></canvas>
-      <canvas id="emptyCanvas" width="16px" height="16px" style="display:none"></canvas>
+      <canvas id="finalCanvas" width="992x" height="320px" style="display:none"></canvas>
     </div>
     <script src="index.js"></script>
   </body>
