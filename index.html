@@ -47,9 +47,9 @@
         <canvas id="gridCanvas" width="992px" height="320px" onclick="console.log('grid')"></canvas>
       </div>
       <div id="esquerdaInferior">
-        <button>Export Bottom Layer</button>
-        <button>Export Top Layer</button>
-        <button onclick="download()">Export Full Map</button>
+        <button onclick="download(mapCanvas)">Export Bottom Layer</button>
+        <button onclick="download(topCanvas)">Export Top Layer</button>
+        <button onclick="download(mapCanvas)">Export Full Map</button>
       </div>
     </div> 
     <div id="direita">

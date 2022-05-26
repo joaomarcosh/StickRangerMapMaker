@@ -97,9 +97,6 @@ topCanvas.addEventListener('mousemove', function(event) {
     gridCTX.putImageData(gridCanvasContent,0,0);
     drawRedBox(x,y,gridCTX);
 });
-//topCanvas.addEventListener('mousemove', function() {
-//    drawRedBox(0,0,gridCTX);
-//});
 
 function  getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect(), // abs. size of element
@@ -112,9 +109,9 @@ function  getMousePos(canvas, evt) {
     }
 }
 
-function download() {
-    mapCanvas.toBlob(function(blob) {
-        saveAs(blob, "map.png");
+function download(canvas) {
+    canvas.toBlob(function(blob) {
+        canvas === mapCanvas ? saveAs(blob, "bottom.png") : saveAs(blob, "top.png");
     });
 }
 
