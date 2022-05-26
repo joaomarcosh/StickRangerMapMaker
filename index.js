@@ -6,21 +6,45 @@ let mapCanvas = document.getElementById("mapCanvas");
 let tileCTX = tileCanvas.getContext("2d");
 let mapCTX = mapCanvas.getContext("2d");
 let tileCanvasContent;
+let mapCanvasContent;
 let selectedTile;
 let mouseDown = false;
-let mousePos = [0,0];
 let img1 = new Image();
-var rect = tileCanvas.getBoundingClientRect();
 
 img1.onload = function() {
     tileCTX.drawImage(img1, 0, 0);
     tileCanvasContent = tileCTX.getImageData(0, 0, tileCanvas.width, tileCanvas.height);
+    selectedTile = tileCTX.getImageData(0, 0, 16, 16);
     drawRedBox(0,0);
     //let img2 = new Image();
     //img2.src = tileCanvas.toDataURL("image/jpeg");
 };
 
-img1.src = "./mt.gif";
+img1.src = "./mt2.gif";
+
+function loadFile(event) {
+    let img2 = new Image();
+    img2.src = URL.createObjectURL(event.target.files[0]);
+    img2.onload = function() {
+        mapCanvas.width = mapCanvas.width;
+        mapCTX.drawImage(img2, 0, 0);
+    }
+    console.log("cool!");
+}
+
+function changeCanvasSize() {
+    newWidth = document.getElementById("mapCanvasW").value;
+    newHeight = document.getElementById("mapCanvasH").value;
+    mapCanvasContent = mapCTX.getImageData(0, 0, mapCanvas.width, mapCanvas.height);
+    if (document.getElementById("tileOrPixel").checked) {
+        mapCanvas.width = Math.ceil(newWidth)*16;
+        mapCanvas.height = Math.ceil(newHeight)*16;
+    } else {
+        mapCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
+        mapCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
+    }
+    mapCTX.putImageData(mapCanvasContent,0,0);
+}
 
 function pick(event) {
     var x = Math.trunc(getMousePos(tileCanvas,event).x);
@@ -28,7 +52,6 @@ function pick(event) {
     x=Math.floor(x/16)*16;
     y=Math.floor(y/16)*16;
     selectedTile = tileCTX.getImageData(x, y, 16, 16);
-    //mapCTX.putImageData(tileCTX.getImageData(x, y, 16, 16),50,50);
     tileCanvas.width = tileCanvas.width;
     tileCTX.putImageData(tileCanvasContent,0,0);
     drawRedBox(x,y);
@@ -70,10 +93,6 @@ function  getMousePos(canvas, evt) {
       y: (evt.clientY - rect.top) * scaleY     // been adjusted to be relative to element
     }
 }
-
-
-
-
 
 function download() {
     mapCanvas.toBlob(function(blob) {

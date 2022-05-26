@@ -13,42 +13,36 @@
         <div id="canvasSize">
           <h2>Canvas Size</h2>
           <div id="sizeInputs">
+            <label for="tileOrPixel">Dimensions in tiles</label><br>
+            <input type="checkbox" id="tileOrPixel" name="tileOrPixel" value="pixels"><br>
             <label for="mapCanvasW">Width:</label><br>
-            <input type="text" id="mapCanvasW" name="mapCanvasW"><br>
+            <input type="text" id="mapCanvasW" name="mapCanvasW" value="992"><br>
             <label for="mapCanvasH">Height:</label><br>
-            <input type="text" id="mapCanvasH" name="mapCanvasH"><br>
-            <button type="submit">Submit</button>
+            <input type="text" id="mapCanvasH" name="mapCanvasH" value="320"><br>
+            <button type="submit" onclick="changeCanvasSize()">Submit</button>
           </div>
         </div>
         <div id="submitFiles">
           <h2>Use image as Bottom Layer</h2>
-          <form action="/action_page.php">
-            <input type="file" id="myFile" name="filename">
-            <input type="submit">
-          </form>
+          <input type="file" accept="image/*" id="bottomFile" name="bottomfile" onchange="loadFile(event)">
           <h2>Use image as Top Layer</h2>
-          <form action="/action_page.php">
-            <input type="file" id="myFile" name="filename">
-            <input type="submit">
-          </form>
+          <input type="file" accept="image/*" id="topFile" name="topfile" onchange="loadFile(event)">
         </div>
         <div id="drawSettings">
           <div id="drawButtons">
             <h2 style="border:1px solid #000000;">D</h2>
             <h2 style="border:1px solid #000000;">D</h2>
           </div>
-          <form action="/action_page.php">
-            <input type="radio" id="html" name="fav_language" value="HTML">
+            <input type="radio" id="html" name="fav_language" value="HTML" checked="checked">
             <label for="html">Bottom Layer</label><br>
             <input type="radio" id="css" name="fav_language" value="CSS">
             <label for="css">Top Layer</label><br>
             <input type="radio" id="javascript" name="fav_language" value="JavaScript">
             <label for="javascript">Both (erase only)</label>
-          </form>
         </div>
       </div>
       <div id="esquerdaCanvas">
-        <canvas id="mapCanvas" width="1600px" height="800px"></canvas>
+        <canvas id="mapCanvas" width="992px" height="320px"></canvas>
       </div>
       <div id="esquerdaInferior">
         <button>Export Bottom Layer</button>
