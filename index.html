@@ -24,25 +24,27 @@
         </div>
         <div id="submitFiles">
           <h2>Use image as Bottom Layer</h2>
-          <input type="file" accept="image/*" id="bottomFile" name="bottomfile" onchange="loadFile(event)">
+          <input type="file" accept="image/*" id="bottomFile" name="bottomfile" onchange="loadFile(event,mapCanvas)">
           <h2>Use image as Top Layer</h2>
-          <input type="file" accept="image/*" id="topFile" name="topfile" onchange="loadFile(event)">
+          <input type="file" accept="image/*" id="topFile" name="topfile" onchange="loadFile(event,topCanvas)">
         </div>
         <div id="drawSettings">
           <div id="drawButtons">
             <h2 style="border:1px solid #000000;">D</h2>
             <h2 style="border:1px solid #000000;">D</h2>
           </div>
-            <input type="radio" id="html" name="fav_language" value="HTML" checked="checked">
-            <label for="html">Bottom Layer</label><br>
-            <input type="radio" id="css" name="fav_language" value="CSS">
-            <label for="css">Top Layer</label><br>
-            <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-            <label for="javascript">Both (erase only)</label>
+          <input type="radio" id="bottomRadio" name="buttonRadio" value="bottomRadio" checked="checked" onclick="setCurrentCanvas()">
+          <label for="bottomRadio">Bottom Layer</label><br>
+          <input type="radio" id="topRadio" name="buttonRadio" value="topRadio" onclick="setCurrentCanvas()">
+          <label for="topRadio">Top Layer</label><br>
+          <input type="radio" id="bothRadio" name="buttonRadio" value="bothRadio" onclick="setCurrentCanvas()">
+          <label for="bothRadio">Both (erase only)</label>
         </div>
       </div>
       <div id="esquerdaCanvas">
-        <canvas id="mapCanvas" width="992px" height="320px"></canvas>
+        <canvas id="mapCanvas" width="992px" height="320px" onclick="console.log('bottom')"></canvas>
+        <canvas id="topCanvas" width="992px" height="320px" onclick="console.log('top')"></canvas>
+        <canvas id="gridCanvas" width="992px" height="320px" onclick="console.log('grid')"></canvas>
       </div>
       <div id="esquerdaInferior">
         <button>Export Bottom Layer</button>
@@ -53,7 +55,6 @@
     <div id="direita">
       <form action="/action_page.php">
         <input type="file" id="myFile" name="filename">
-        <input type="submit">
       </form>
       <canvas id="tileCanvas" width="192px" height="400px"></canvas>
     </div>

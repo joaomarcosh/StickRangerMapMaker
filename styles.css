@@ -25,6 +25,7 @@ body {
   max-height: 60vh;
   max-width:75vw;
   overflow: scroll;
+  position: relative;
 }
 
 #esquerda {
@@ -33,6 +34,22 @@ body {
 
 #mapCanvas {
   border:1px solid #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#topCanvas {
+  border:1px solid #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#gridCanvas {
+  border:1px solid #000000;
+  top: 0;
+  left: 0;
 }
 
 #direita {
