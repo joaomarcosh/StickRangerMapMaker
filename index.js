@@ -17,9 +17,13 @@ let mouseDown = false;
 let alternateGrid = false;
 let currentCTX = mapCTX;
 let currentButton = "draw";
-let emptyTile = mapCTX.getImageData(0, 0, 16, 16);
+let emptyTopTile = tileCTX.getImageData(0, 0, 16, 16);
 let baseTileSet = new Image();
 baseTileSet.src = "./mt3.gif";
+
+paintCanvasBackground();
+let emptyMapTile = mapCTX.getImageData(0, 0, 16, 16);
+drawGrid();
 
 baseTileSet.onload = function() {
     tileCTX.drawImage(baseTileSet, 0, 0);
@@ -94,9 +98,22 @@ function changeCanvasSize() {
         finalCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
         finalCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
     }
+    paintCanvasBackground();
     mapCTX.putImageData(mapCanvasContent,0,0);
     topCTX.putImageData(topCanvasContent,0,0);
     drawGrid();
+    
+}
+
+function fixNumber(div = 1) {
+    if (document.getElementById("tileOrPixel").checked) {
+        document.getElementById("mapCanvasW").value = mapCanvas.width/16;
+        document.getElementById("mapCanvasH").value = mapCanvas.height/16;
+    } else {
+        document.getElementById("mapCanvasW").value = mapCanvas.width;
+        document.getElementById("mapCanvasH").value = mapCanvas.height;
+    }
+    
 }
 
 function pick(event) {
@@ -111,11 +128,13 @@ function place(event) {
     let {x,y} = getMousePos(gridCanvas,event);
     if (currentCTX!="both" && currentButton!="delete") {
         currentCTX.putImageData(selectedTile,x,y);
-    } else if (currentCTX!="both" && currentButton==="delete") {
-        currentCTX.putImageData(emptyTile,x,y);
+    } else if (currentCTX===mapCTX && currentButton==="delete") {
+        currentCTX.putImageData(emptyMapTile,x,y);
+    } else if (currentCTX===topCTX && currentButton==="delete") {
+        currentCTX.putImageData(emptyTopTile,x,y);
     } else if (currentCTX==="both" && currentButton==="delete") {
-        mapCTX.putImageData(emptyTile,x,y);
-        topCTX.putImageData(emptyTile,x,y);
+        mapCTX.putImageData(emptyMapTile,x,y);
+        topCTX.putImageData(emptyTopTile,x,y);
     }
 }
 
@@ -186,9 +205,16 @@ function drawRedBox(x,y,context,color="#FF0000") {
     context.stroke();
 }
 
+function paintCanvasBackground() {
+    mapCTX.beginPath();
+    mapCTX.rect(0, 0, mapCanvas.width, mapCanvas.height);
+    mapCTX.fillStyle = "black";
+    mapCTX.fill();
+}
+
 function drawGrid() {
     gridCanvas.width = gridCanvas.width;
-    gridCTX.strokeStyle = "#00000020";
+    gridCTX.strokeStyle = "#FFFFFF20";
     if (!alternateGrid) {
         for (x=16;x<gridCanvas.width;x+=16) {
             gridCTX.moveTo(x-0.5,0.5);
@@ -214,4 +240,3 @@ function drawGrid() {
     }
 }
 
-drawGrid();

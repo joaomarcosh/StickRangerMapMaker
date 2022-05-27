@@ -14,12 +14,12 @@
           <h2>Canvas Size</h2>
           <div id="sizeInputs">
             <label for="tileOrPixel">Dimensions in tiles</label><br>
-            <input type="checkbox" id="tileOrPixel" name="tileOrPixel"><br>
+            <input type="checkbox" id="tileOrPixel" name="tileOrPixel" onclick="fixNumber()"><br>
             <label for="mapCanvasW">Width:</label><br>
-            <input type="text" id="mapCanvasW" name="mapCanvasW" value="992"><br>
+            <input type="number" id="mapCanvasW" name="mapCanvasW" value="992" onblur="fixNumber()" oninput="changeCanvasSize()"><br>
             <label for="mapCanvasH">Height:</label><br>
-            <input type="text" id="mapCanvasH" name="mapCanvasH" value="320"><br>
-            <button type="submit" onclick="changeCanvasSize()">Submit</button>
+            <input type="number" id="mapCanvasH" name="mapCanvasH" value="320" onblur="fixNumber()" oninput="changeCanvasSize()"><br>
+            <!--<button type="submit" onclick="changeCanvasSize()">Submit</button>-->
           </div>
         </div>
         <div id="submitFiles">
@@ -31,9 +31,9 @@
         <div id="drawSettings">
           <div id="drawButtons">
             <input type="radio" id="drawRadio" name="buttonRadio" checked="checked" onclick="setButton()">
-            <label for="topRadio">Draw</label><br>
+            <label for="drawRadio">Draw</label><br>
             <input type="radio" id="deleteRadio" name="buttonRadio" onclick="setButton()">
-            <label for="bothRadio">Erase</label>
+            <label for="deleteRadio">Erase</label>
           </div>
           <input type="radio" id="bottomRadio" name="settingRadio" checked="checked" onclick="setCurrentCanvas()">
           <label for="bottomRadio">Bottom Layer</label><br>
