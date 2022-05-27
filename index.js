@@ -109,9 +109,13 @@ function fixNumber(div = 1) {
     if (document.getElementById("tileOrPixel").checked) {
         document.getElementById("mapCanvasW").value = mapCanvas.width/16;
         document.getElementById("mapCanvasH").value = mapCanvas.height/16;
+        document.querySelectorAll("p")[0].innerHTML = " tiles";
+        document.querySelectorAll("p")[1].innerHTML = " tiles";
     } else {
         document.getElementById("mapCanvasW").value = mapCanvas.width;
         document.getElementById("mapCanvasH").value = mapCanvas.height;
+        document.querySelectorAll("p")[0].innerHTML = " pixels";
+        document.querySelectorAll("p")[1].innerHTML = " pixels";
     }
     
 }

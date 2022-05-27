@@ -11,6 +11,11 @@ body {
   justify-content: center;
 }
 
+p {
+  margin: 0;
+  display: inline;
+}
+
 #esquerdaSuperior {
   display: flex;
   max-height: 40vh;
@@ -72,4 +77,8 @@ body {
 
 #sizeInputs {
   padding-bottom: 20px;
+}
+
+#mapCanvasW, #mapCanvasH {
+  width: 48px;
 }
