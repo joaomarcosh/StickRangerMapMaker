@@ -1,13 +1,13 @@
-let tileCanvas = document.getElementById("tileCanvas");
-let mapCanvas = document.getElementById("mapCanvas");
-let topCanvas = document.getElementById("topCanvas");
-let gridCanvas = document.getElementById("gridCanvas");
-let finalCanvas = document.getElementById("finalCanvas");
-let tileCTX = tileCanvas.getContext("2d");
-let mapCTX = mapCanvas.getContext("2d");
-let topCTX = topCanvas.getContext("2d");
-let gridCTX = gridCanvas.getContext("2d");
-let finalCTX = finalCanvas.getContext("2d");
+const tileCanvas = document.getElementById("tileCanvas");
+const mapCanvas = document.getElementById("mapCanvas");
+const topCanvas = document.getElementById("topCanvas");
+const gridCanvas = document.getElementById("gridCanvas");
+const finalCanvas = document.getElementById("finalCanvas");
+const tileCTX = tileCanvas.getContext("2d");
+const mapCTX = mapCanvas.getContext("2d");
+const topCTX = topCanvas.getContext("2d");
+const gridCTX = gridCanvas.getContext("2d");
+const finalCTX = finalCanvas.getContext("2d");
 let tileCanvasContent;
 let mapCanvasContent;
 let topCanvasContent;
@@ -17,8 +17,8 @@ let mouseDown = false;
 let alternateGrid = false;
 let currentCTX = mapCTX;
 let currentButton = "draw";
-let emptyTopTile = tileCTX.getImageData(0, 0, 16, 16);
-let baseTileSet = new Image();
+const emptyTopTile = tileCTX.getImageData(0, 0, 16, 16);
+const baseTileSet = new Image();
 baseTileSet.src = "./mt3.gif";
 
 paintCanvasBackground();
@@ -53,11 +53,9 @@ gridCanvas.addEventListener('mousemove', function(event) {
     drawRedBox(x,y,gridCTX);
 });
 document.getElementById("bottomFile").addEventListener("change", function(event) {
-    currentCTX = mapCTX;
     loadFile(event,mapCanvas);
 });
 document.getElementById("topFile").addEventListener("change", function(event) {
-    currentCTX = topCTX;
     loadFile(event,topCanvas);
 });
 document.getElementById("tileFile").addEventListener("change", function(event) {
@@ -68,7 +66,8 @@ function loadFile(event,canvas) {
     let imageFile = new Image();
     imageFile.src = URL.createObjectURL(event.target.files[0]);
     imageFile.onload = function() {
-        currentCTX.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+        canvas.getContext("2d").clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+        paintCanvasBackground();
         canvas.getContext("2d").drawImage(imageFile, 0, 0);
         if (canvas === tileCanvas) {
             tileCanvasContent = tileCTX.getImageData(0, 0, tileCanvas.width, tileCanvas.height);
