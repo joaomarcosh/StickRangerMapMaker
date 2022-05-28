@@ -48,17 +48,26 @@ gridCanvas.addEventListener('mousemove', function(event) {
         place(event);
     }
     let {x,y} = getMousePos(gridCanvas,event);
-    //gridCanvas.width = gridCanvas.width;
     gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
     gridCTX.putImageData(gridCanvasContent,0,0);
     drawRedBox(x,y,gridCTX);
+});
+document.getElementById("bottomFile").addEventListener("change", function(event) {
+    currentCTX = mapCTX;
+    loadFile(event,mapCanvas);
+});
+document.getElementById("topFile").addEventListener("change", function(event) {
+    currentCTX = topCTX;
+    loadFile(event,topCanvas);
+});
+document.getElementById("tileFile").addEventListener("change", function(event) {
+    loadFile(event,tileCanvas);
 });
 
 function loadFile(event,canvas) {
     let imageFile = new Image();
     imageFile.src = URL.createObjectURL(event.target.files[0]);
     imageFile.onload = function() {
-        //canvas.width = canvas.width;
         currentCTX.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
         canvas.getContext("2d").drawImage(imageFile, 0, 0);
         if (canvas === tileCanvas) {
@@ -125,7 +134,6 @@ function fixNumber() {
 function pick(event) {
     let {x,y} = getMousePos(tileCanvas,event);
     selectedTile = tileCTX.getImageData(x, y, 16, 16);
-    //tileCanvas.width = tileCanvas.width;
     tileCTX.clearRect(0, 0, tileCanvas.clientWidth, tileCanvas.clientHeight);
     tileCTX.putImageData(tileCanvasContent,0,0);
     drawRedBox(x,y,tileCTX);
@@ -220,7 +228,6 @@ function paintCanvasBackground() {
 }
 
 function drawGrid() {
-    //gridCanvas.width = gridCanvas.width;
     gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
     gridCTX.strokeStyle = "#FFFFFF20";
     if (!alternateGrid) {
