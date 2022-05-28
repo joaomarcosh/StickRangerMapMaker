@@ -179,7 +179,7 @@ function exportFullMap() {
     drawGrid();
     arraySize = finalCanvas.width * finalCanvas.height * 4;
     for (i=0;i<arraySize;i+=4) {
-        if (topCanvasContent.data[i]!==0||topCanvasContent.data[i+1]!==0||topCanvasContent.data[i+2]!==0||topCanvasContent.data[i+3]!==0) {
+        if (topCanvasContent.data[i+3]!==0) {
             finalCanvasContent.data[i] = topCanvasContent.data[i];
             finalCanvasContent.data[i+1] = topCanvasContent.data[i+1];
             finalCanvasContent.data[i+2] = topCanvasContent.data[i+2];
