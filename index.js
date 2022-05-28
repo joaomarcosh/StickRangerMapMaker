@@ -48,7 +48,8 @@ gridCanvas.addEventListener('mousemove', function(event) {
         place(event);
     }
     let {x,y} = getMousePos(gridCanvas,event);
-    gridCanvas.width = gridCanvas.width;
+    //gridCanvas.width = gridCanvas.width;
+    gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
     gridCTX.putImageData(gridCanvasContent,0,0);
     drawRedBox(x,y,gridCTX);
 });
@@ -57,7 +58,8 @@ function loadFile(event,canvas) {
     let imageFile = new Image();
     imageFile.src = URL.createObjectURL(event.target.files[0]);
     imageFile.onload = function() {
-        canvas.width = canvas.width;
+        //canvas.width = canvas.width;
+        currentCTX.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
         canvas.getContext("2d").drawImage(imageFile, 0, 0);
         if (canvas === tileCanvas) {
             tileCanvasContent = tileCTX.getImageData(0, 0, tileCanvas.width, tileCanvas.height);
@@ -75,8 +77,8 @@ function setButton() {
 }
 
 function changeCanvasSize() {
-    newWidth = document.getElementById("mapCanvasW").value;
-    newHeight = document.getElementById("mapCanvasH").value;
+    const newWidth = document.getElementById("mapCanvasW").value;
+    const newHeight = document.getElementById("mapCanvasH").value;
     mapCanvasContent = mapCTX.getImageData(0, 0, mapCanvas.width, mapCanvas.height);
     topCanvasContent = topCTX.getImageData(0, 0, topCanvas.width, topCanvas.height);
     if (document.getElementById("tileOrPixel").checked) {
@@ -105,7 +107,7 @@ function changeCanvasSize() {
     
 }
 
-function fixNumber(div = 1) {
+function fixNumber() {
     if (document.getElementById("tileOrPixel").checked) {
         document.getElementById("mapCanvasW").value = mapCanvas.width/16;
         document.getElementById("mapCanvasH").value = mapCanvas.height/16;
@@ -123,14 +125,15 @@ function fixNumber(div = 1) {
 function pick(event) {
     let {x,y} = getMousePos(tileCanvas,event);
     selectedTile = tileCTX.getImageData(x, y, 16, 16);
-    tileCanvas.width = tileCanvas.width;
+    //tileCanvas.width = tileCanvas.width;
+    tileCTX.clearRect(0, 0, tileCanvas.clientWidth, tileCanvas.clientHeight);
     tileCTX.putImageData(tileCanvasContent,0,0);
     drawRedBox(x,y,tileCTX);
 }
 
 function place(event) {
     let {x,y} = getMousePos(gridCanvas,event);
-    if (currentCTX!="both" && currentButton!="delete") {
+    if (currentCTX!=="both" && currentButton!=="delete") {
         currentCTX.putImageData(selectedTile,x,y);
     } else if (currentCTX===mapCTX && currentButton==="delete") {
         currentCTX.putImageData(emptyMapTile,x,y);
@@ -175,10 +178,10 @@ function exportFullMap() {
     mapCanvasContent = mapCTX.getImageData(0, 0, mapCanvas.width, mapCanvas.height);
     topCanvasContent = topCTX.getImageData(0, 0, topCanvas.width, topCanvas.height);
     finalCTX.putImageData(mapCanvasContent,0,0);
-    finalCanvasContent = finalCTX.getImageData(0, 0, finalCanvas.width, finalCanvas.height);
+    const finalCanvasContent = finalCTX.getImageData(0, 0, finalCanvas.width, finalCanvas.height);
     drawGrid();
-    arraySize = finalCanvas.width * finalCanvas.height * 4;
-    for (i=0;i<arraySize;i+=4) {
+    const arraySize = finalCanvas.width * finalCanvas.height * 4;
+    for (let i=0;i<arraySize;i+=4) {
         if (topCanvasContent.data[i+3]!==0) {
             finalCanvasContent.data[i] = topCanvasContent.data[i];
             finalCanvasContent.data[i+1] = topCanvasContent.data[i+1];
@@ -217,25 +220,26 @@ function paintCanvasBackground() {
 }
 
 function drawGrid() {
-    gridCanvas.width = gridCanvas.width;
+    //gridCanvas.width = gridCanvas.width;
+    gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
     gridCTX.strokeStyle = "#FFFFFF20";
     if (!alternateGrid) {
-        for (x=16;x<gridCanvas.width;x+=16) {
+        for (let x=16;x<gridCanvas.width;x+=16) {
             gridCTX.moveTo(x-0.5,0.5);
             gridCTX.lineTo(x-0.5,gridCanvas.height-0.5);
         }
-        for (y=16;y<gridCanvas.height;y+=16) {
+        for (let y=16;y<gridCanvas.height;y+=16) {
             gridCTX.moveTo(0.5,y-0.5);
             gridCTX.lineTo(gridCanvas.width-0.5,y-0.5);
         }
         gridCTX.stroke();
         gridCanvasContent = gridCTX.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
     } else {
-        for (x=-8;x<gridCanvas.width+8;x+=16) {
+        for (let x=-8;x<gridCanvas.width+8;x+=16) {
             gridCTX.moveTo(x-0.5,0.5);
             gridCTX.lineTo(x-0.5,gridCanvas.height-0.5);
         }
-        for (y=-8;y<gridCanvas.height+8;y+=16) {
+        for (let y=-8;y<gridCanvas.height+8;y+=16) {
             gridCTX.moveTo(0.5,y-0.5);
             gridCTX.lineTo(gridCanvas.width-0.5,y-0.5);
         }
@@ -243,4 +247,3 @@ function drawGrid() {
         gridCanvasContent = gridCTX.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
     }
 }
-
