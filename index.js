@@ -49,6 +49,7 @@ gridCanvas.addEventListener('mousemove', function(event) {
     }
     let {x,y} = getMousePos(gridCanvas,event);
     gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
+    //gridCanvas.width=gridCanvas.width;
     gridCTX.putImageData(gridCanvasContent,0,0);
     drawRedBox(x,y,gridCTX);
 });
@@ -228,6 +229,7 @@ function paintCanvasBackground() {
 
 function drawGrid() {
     gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
+    gridCTX.beginPath();
     gridCTX.strokeStyle = "#FFFFFF20";
     if (!alternateGrid) {
         for (let x=16;x<gridCanvas.width;x+=16) {
