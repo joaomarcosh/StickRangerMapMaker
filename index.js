@@ -2,12 +2,10 @@ const tileCanvas = document.getElementById("tileCanvas");
 const mapCanvas = document.getElementById("mapCanvas");
 const topCanvas = document.getElementById("topCanvas");
 const gridCanvas = document.getElementById("gridCanvas");
-const finalCanvas = document.getElementById("finalCanvas");
 const tileCTX = tileCanvas.getContext("2d");
 const mapCTX = mapCanvas.getContext("2d");
 const topCTX = topCanvas.getContext("2d");
 const gridCTX = gridCanvas.getContext("2d");
-const finalCTX = finalCanvas.getContext("2d");
 let tileCanvasContent;
 let mapCanvasContent;
 let topCanvasContent;
@@ -49,9 +47,11 @@ gridCanvas.addEventListener('mousemove', function(event) {
     }
     let {x,y} = getMousePos(gridCanvas,event);
     gridCTX.clearRect(0, 0, gridCanvas.clientWidth, gridCanvas.clientHeight);
-    //gridCanvas.width=gridCanvas.width;
     gridCTX.putImageData(gridCanvasContent,0,0);
     drawRedBox(x,y,gridCTX);
+});
+gridCanvas.addEventListener('mouseout', function() {
+    drawGrid();
 });
 document.getElementById("bottomFile").addEventListener("change", function(event) {
     loadFile(event,mapCanvas);
@@ -68,7 +68,7 @@ function loadFile(event,canvas) {
     imageFile.src = URL.createObjectURL(event.target.files[0]);
     imageFile.onload = function() {
         canvas.getContext("2d").clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-        paintCanvasBackground();
+        if (canvas===mapCanvas) paintCanvasBackground();
         canvas.getContext("2d").drawImage(imageFile, 0, 0);
         if (canvas === tileCanvas) {
             tileCanvasContent = tileCTX.getImageData(0, 0, tileCanvas.width, tileCanvas.height);
@@ -97,8 +97,6 @@ function changeCanvasSize() {
         topCanvas.height = Math.ceil(newHeight)*16;
         gridCanvas.width = Math.ceil(newWidth)*16;
         gridCanvas.height = Math.ceil(newHeight)*16;
-        finalCanvas.width = Math.ceil(newWidth)*16;
-        finalCanvas.height = Math.ceil(newHeight)*16;
     } else {
         mapCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
         mapCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
@@ -106,8 +104,6 @@ function changeCanvasSize() {
         topCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
         gridCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
         gridCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
-        finalCanvas.width = Math.max(Math.ceil(newWidth/16)*16,16);
-        finalCanvas.height = Math.max(Math.ceil(newHeight/16)*16,16);
     }
     paintCanvasBackground();
     mapCTX.putImageData(mapCanvasContent,0,0);
@@ -185,27 +181,27 @@ function  getMousePos(canvas, evt) {
 function exportFullMap() {
     mapCanvasContent = mapCTX.getImageData(0, 0, mapCanvas.width, mapCanvas.height);
     topCanvasContent = topCTX.getImageData(0, 0, topCanvas.width, topCanvas.height);
-    finalCTX.putImageData(mapCanvasContent,0,0);
-    const finalCanvasContent = finalCTX.getImageData(0, 0, finalCanvas.width, finalCanvas.height);
-    drawGrid();
-    const arraySize = finalCanvas.width * finalCanvas.height * 4;
+    gridCTX.putImageData(mapCanvasContent,0,0);
+    const gridCanvasContent = gridCTX.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
+    const arraySize = gridCanvas.width * gridCanvas.height * 4;
     for (let i=0;i<arraySize;i+=4) {
         if (topCanvasContent.data[i+3]!==0) {
-            finalCanvasContent.data[i] = topCanvasContent.data[i];
-            finalCanvasContent.data[i+1] = topCanvasContent.data[i+1];
-            finalCanvasContent.data[i+2] = topCanvasContent.data[i+2];
-            finalCanvasContent.data[i+3] = topCanvasContent.data[i+3];
+            gridCanvasContent.data[i] = topCanvasContent.data[i];
+            gridCanvasContent.data[i+1] = topCanvasContent.data[i+1];
+            gridCanvasContent.data[i+2] = topCanvasContent.data[i+2];
+            gridCanvasContent.data[i+3] = topCanvasContent.data[i+3];
         }
     }
-    finalCTX.putImageData(finalCanvasContent,0,0);
-    download(finalCanvas);
+    gridCTX.putImageData(gridCanvasContent,0,0);
+    download(gridCanvas);
+    drawGrid();
 }
 
 function download(canvas) {
     canvas.toBlob(function(blob) {
         if (canvas===mapCanvas) saveAs(blob, "bottom.png")
         else if (canvas===topCanvas) saveAs(blob, "top.png")
-        else if (canvas===finalCanvas) saveAs(blob, "full.png")
+        else if (canvas===gridCanvas) saveAs(blob, "full.png")
     });
 }
 
