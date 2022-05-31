@@ -62,6 +62,12 @@ document.getElementById("topFile").addEventListener("change", function(event) {
 document.getElementById("tileFile").addEventListener("change", function(event) {
     loadFile(event,tileCanvas);
 });
+document.getElementById("mapCanvasW").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") changeCanvasSize();
+})
+document.getElementById("mapCanvasH").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") changeCanvasSize();
+})
 
 function loadFile(event,canvas) {
     let imageFile = new Image();
@@ -109,7 +115,7 @@ function changeCanvasSize() {
     mapCTX.putImageData(mapCanvasContent,0,0);
     topCTX.putImageData(topCanvasContent,0,0);
     drawGrid();
-    
+    fixNumber();
 }
 
 function fixNumber() {
