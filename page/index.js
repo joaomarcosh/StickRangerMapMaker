@@ -1,7 +1,9 @@
-const tileCanvas = document.getElementById("tileCanvas");
-const mapCanvas = document.getElementById("mapCanvas");
-const topCanvas = document.getElementById("topCanvas");
-const gridCanvas = document.getElementById("gridCanvas");
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+const tileCanvas = $("#tileCanvas");
+const mapCanvas = $("#mapCanvas");
+const topCanvas = $("#topCanvas");
+const gridCanvas = $("#gridCanvas");
 const tileCTX = tileCanvas.getContext("2d");
 const mapCTX = mapCanvas.getContext("2d");
 const topCTX = topCanvas.getContext("2d");
@@ -17,7 +19,7 @@ let currentCTX = mapCTX;
 let currentButton = "draw";
 const emptyTopTile = tileCTX.getImageData(0, 0, 16, 16);
 const baseTileSet = new Image();
-baseTileSet.src = "./mt3.gif";
+baseTileSet.src = "./images/mt3.gif";
 
 paintCanvasBackground();
 let emptyMapTile = mapCTX.getImageData(0, 0, 16, 16);
@@ -53,19 +55,19 @@ gridCanvas.addEventListener('mousemove', function(event) {
 gridCanvas.addEventListener('mouseout', function() {
     drawGrid();
 });
-document.getElementById("bottomFile").addEventListener("change", function(event) {
+$("#bottomFile").addEventListener("change", function(event) {
     loadFile(event,mapCanvas);
 });
-document.getElementById("topFile").addEventListener("change", function(event) {
+$("#topFile").addEventListener("change", function(event) {
     loadFile(event,topCanvas);
 });
-document.getElementById("tileFile").addEventListener("change", function(event) {
+$("#tileFile").addEventListener("change", function(event) {
     loadFile(event,tileCanvas);
 });
-document.getElementById("mapCanvasW").addEventListener("keydown", function(event) {
+$("#mapCanvasW").addEventListener("keydown", function(event) {
     if (event.key === "Enter") changeCanvasSize();
 })
-document.getElementById("mapCanvasH").addEventListener("keydown", function(event) {
+$("#mapCanvasH").addEventListener("keydown", function(event) {
     if (event.key === "Enter") changeCanvasSize();
 })
 
@@ -81,22 +83,22 @@ function loadFile(event,canvas) {
             selectedTile = tileCTX.getImageData(0, 0, 16, 16);
             drawRedBox(0,0,tileCTX);
         }
-        document.getElementById("bottomFile").value ="";
-        document.getElementById("topFile").value ="";
+        $("#bottomFile").value ="";
+        $("#topFile").value ="";
     }
 }
 
 function setButton() {
-    if (document.getElementById("drawRadio").checked) currentButton="draw"
-    else if (document.getElementById("deleteRadio").checked) currentButton="delete"
+    if ($("#drawRadio").checked) currentButton="draw"
+    else if ($("#deleteRadio").checked) currentButton="delete"
 }
 
 function changeCanvasSize() {
-    const newWidth = document.getElementById("mapCanvasW").value;
-    const newHeight = document.getElementById("mapCanvasH").value;
+    const newWidth = $("#mapCanvasW").value;
+    const newHeight = $("#mapCanvasH").value;
     mapCanvasContent = mapCTX.getImageData(0, 0, mapCanvas.width, mapCanvas.height);
     topCanvasContent = topCTX.getImageData(0, 0, topCanvas.width, topCanvas.height);
-    if (document.getElementById("tileOrPixel").checked) {
+    if ($("#tileOrPixel").checked) {
         mapCanvas.width = Math.ceil(newWidth)*16;
         mapCanvas.height = Math.ceil(newHeight)*16;
         topCanvas.width = Math.ceil(newWidth)*16;
@@ -119,16 +121,16 @@ function changeCanvasSize() {
 }
 
 function fixNumber() {
-    if (document.getElementById("tileOrPixel").checked) {
-        document.getElementById("mapCanvasW").value = mapCanvas.width/16;
-        document.getElementById("mapCanvasH").value = mapCanvas.height/16;
-        document.querySelectorAll("p")[0].innerHTML = " tiles";
-        document.querySelectorAll("p")[1].innerHTML = " tiles";
+    if ($("#tileOrPixel").checked) {
+        $("#mapCanvasW").value = mapCanvas.width/16;
+        $("#mapCanvasH").value = mapCanvas.height/16;
+        $$("p")[0].innerHTML = " tiles";
+        $$("p")[1].innerHTML = " tiles";
     } else {
-        document.getElementById("mapCanvasW").value = mapCanvas.width;
-        document.getElementById("mapCanvasH").value = mapCanvas.height;
-        document.querySelectorAll("p")[0].innerHTML = " pixels";
-        document.querySelectorAll("p")[1].innerHTML = " pixels";
+        $("#mapCanvasW").value = mapCanvas.width;
+        $("#mapCanvasH").value = mapCanvas.height;
+        $$("p")[0].innerHTML = " pixels";
+        $$("p")[1].innerHTML = " pixels";
     }
     
 }
@@ -156,9 +158,9 @@ function place(event) {
 }
 
 function setCurrentCanvas() {
-    if (document.getElementById("bottomRadio").checked) currentCTX=mapCTX
-    else if (document.getElementById("topRadio").checked) currentCTX=topCTX
-    else if (document.getElementById("bothRadio").checked) currentCTX="both"
+    if ($("#bottomRadio").checked) currentCTX=mapCTX
+    else if ($("#topRadio").checked) currentCTX=topCTX
+    else if ($("#bothRadio").checked) currentCTX="both"
 }
 
 function changeGrid() {
