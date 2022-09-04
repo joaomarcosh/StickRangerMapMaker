@@ -65,9 +65,24 @@ p {
   
 }
 
+#direitaCanvas {
+  overflow: scroll;
+  position: relative;
+}
+
 #tileCanvas {
   border:1px solid #000000;
   overflow: scroll;
+  
+  top: 0;
+  left: 0;
+}
+
+#tileGridCanvas {
+  border:1px solid #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #drawButtons {

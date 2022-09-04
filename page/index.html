@@ -17,11 +17,11 @@
           <h2>Canvas Size</h2>
           <div id="sizeInputs">
             <label for="tileOrPixel">Dimensions in tiles</label><br>
-            <input type="checkbox" id="tileOrPixel" name="tileOrPixel" onclick="fixNumber()"><br>
+            <input type="checkbox" id="tileOrPixel" name="tileOrPixel" autocomplete="off"><br>
             <label for="mapCanvasW">Width:</label><br>
-            <input type="number" id="mapCanvasW" name="mapCanvasW" value="992" onblur="changeCanvasSize()"><p> pixels</p><br>
+            <input type="number" id="mapCanvasW" name="mapCanvasW" value="992" autocomplete="off"><p> pixels</p><br>
             <label for="mapCanvasH">Height:</label><br>
-            <input type="number" id="mapCanvasH" name="mapCanvasH" value="320" onblur="changeCanvasSize()"><p> pixels</p><br>
+            <input type="number" id="mapCanvasH" name="mapCanvasH" value="320" autocomplete="off"><p> pixels</p><br>
           </div>
         </div>
         <div id="submitFiles">
@@ -32,16 +32,16 @@
         </div>
         <div id="drawSettings">
           <div id="drawButtons">
-            <input type="radio" id="drawRadio" name="buttonRadio" checked="checked" onclick="setButton()">
+            <input type="radio" id="drawRadio" name="buttonRadio" checked="checked">
             <label for="drawRadio">Draw</label><br>
-            <input type="radio" id="deleteRadio" name="buttonRadio" onclick="setButton()">
+            <input type="radio" id="deleteRadio" name="buttonRadio">
             <label for="deleteRadio">Erase</label>
           </div>
-          <input type="radio" id="bottomRadio" name="settingRadio" checked="checked" onclick="setCurrentCanvas()">
+          <input type="radio" id="bottomRadio" name="settingRadio" checked="checked">
           <label for="bottomRadio">Bottom Layer</label><br>
-          <input type="radio" id="topRadio" name="settingRadio" onclick="setCurrentCanvas()">
+          <input type="radio" id="topRadio" name="settingRadio">
           <label for="topRadio">Top Layer</label><br>
-          <input type="radio" id="bothRadio" name="settingRadio" onclick="setCurrentCanvas()">
+          <input type="radio" id="bothRadio" name="settingRadio">
           <label for="bothRadio">Both (erase only)</label>
         </div>
       </div>
@@ -51,17 +51,31 @@
         <canvas id="gridCanvas" width="992px" height="320px"></canvas>
       </div>
       <div id="esquerdaInferior">
-        <button onclick="download(mapCanvas)">Export Bottom Layer</button>
-        <button onclick="download(topCanvas)">Export Top Layer</button>
-        <button onclick="exportFullMap()">Export Full Map</button>
+        <button id="mapDownload">Export Bottom Layer</button>
+        <button id="topDownload">Export Top Layer</button>
+        <button id="fullDownload">Export Full Map</button>
       </div>
     </div> 
     <div id="direita">
-      <label for="alternateGrid">Alternate Grid</label><br>
-      <input type="checkbox" id="alternateGrid" name="alternateGrid" onclick="changeGrid()"><br>
-      <input type="file" accept="image/*" id="tileFile" name="tilefile">
-      <canvas id="tileCanvas" width="192px" height="400px"></canvas>
+      <div id="direitaSuperior">
+        <label for="alternateGrid">Alternate Grid</label><br>
+        <input type="checkbox" id="alternateGrid" name="alternateGrid" autocomplete="off"><br>
+        <input type="file" accept="image/*" id="tileFile" name="tilefile">
+      </div>
+      <div id="direitaCanvas">
+        <canvas id="tileCanvas" width="192px" height="400px"></canvas>
+        <canvas id="tileGridCanvas" width="192px" height="400px"></canvas>
+      </div>
     </div>
+    <script src="helpers/fixNumber.js"></script>
+    <script src="helpers/changeCanvasSize.js"></script>
+    <script src="helpers/exportFullMap.js"></script>
+    <script src="helpers/loadFile.js"></script>
+    <script src="helpers/place.js"></script>
+    <script src="helpers/getMousePos.js"></script>
+    <script src="Canvas.js"></script>
+    <script src="GridCanvas.js"></script>
     <script src="index.js"></script>
+    <script src="events.js"></script>
   </body>
 </html>
