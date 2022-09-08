@@ -8,6 +8,7 @@ tileGridCanvas.canvas.addEventListener('click', function(event) {
 gridCanvas.canvas.addEventListener('mousedown', function(event) {
     mouseDown=true;
     place(event);
+    createTiles();
 });
 
 gridCanvas.canvas.addEventListener('mouseup', function() {
@@ -17,6 +18,7 @@ gridCanvas.canvas.addEventListener('mouseup', function() {
 gridCanvas.canvas.addEventListener('mousemove', function(event) {
     if (mouseDown) {
         place(event);
+        createTiles();
     }
     let {x,y} = getMousePos(gridCanvas,event);
     gridCanvas.context.clearRect(0, 0, gridCanvas.width, gridCanvas.height);

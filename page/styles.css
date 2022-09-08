@@ -59,6 +59,10 @@ p {
   left: 0;
 }
 
+#colorCanvas {
+  border:1px solid #FF0000;
+}
+
 #direita {
   max-height: 70vh;
   max-width: 20vw;

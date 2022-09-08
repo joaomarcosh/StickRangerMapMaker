@@ -6,6 +6,8 @@ const tileGridCanvas = new GridCanvas($("#tileGridCanvas"));
 const mapCanvas = new Canvas($("#mapCanvas"));
 const topCanvas = new Canvas($("#topCanvas"));
 const gridCanvas = new GridCanvas($("#gridCanvas"));
+const colorCanvas = new Canvas($('#colorCanvas'));
+colorCanvas.paintCanvasBackground('black');
 
 let selectedTile;
 let mouseDown = false;
@@ -15,7 +17,7 @@ const emptyMapTile = mapCanvas.context.getImageData(0, 0, 16, 16);
 const emptyTopTile = tileCanvas.context.getImageData(0, 0, 16, 16);
 
 const baseTileSet = new Image();
-baseTileSet.src = "./images/mt3.gif";
+baseTileSet.src = "./images/mt5.png";
 
 gridCanvas.drawGrid();
 gridCanvas.setContent();
