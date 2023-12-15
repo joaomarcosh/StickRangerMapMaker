@@ -16,7 +16,7 @@ p {
   display: inline;
 }
 
-#esquerdaSuperior {
+#leftSuperior {
   display: flex;
   max-height: 40vh;
   justify-content: space-between;
@@ -27,20 +27,27 @@ p {
   display: flex;
 }
 
-#esquerdaCanvas {
+#leftCanvas {
   max-height: 60vh;
   max-width:75vw;
   overflow: scroll;
   position: relative;
 }
 
-#esquerda {
+#left {
   max-width: 75vw;
 }
 
 #mapCanvas {
   border:1px solid #000000;
   
+  top: 0;
+  left: 0;
+}
+
+#colorCanvas {
+  border:1px solid #FF0000;
+  position: absolute;
   top: 0;
   left: 0;
 }
@@ -59,17 +66,13 @@ p {
   left: 0;
 }
 
-#colorCanvas {
-  border:1px solid #FF0000;
-}
-
-#direita {
+#right {
   max-height: 70vh;
   max-width: 20vw;
   
 }
 
-#direitaCanvas {
+#rightCanvas {
   overflow: scroll;
   position: relative;
 }
@@ -100,4 +103,64 @@ p {
 
 #mapCanvasW, #mapCanvasH {
   width: 48px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

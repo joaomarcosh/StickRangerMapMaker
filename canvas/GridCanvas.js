@@ -23,9 +23,9 @@ class GridCanvas extends Canvas {
     }
 
     changeGrid() {
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
+        this.offsetX = this.offsetX ? 0 : 8;
+        this.offsetY = this.offsetY ? 0 : 8;
         this.drawGrid();
-        this.content = this.context.getImageData(0, 0, this.width, this.height);
+        this.setContent();
     }
 }

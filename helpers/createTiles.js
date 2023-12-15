@@ -1,16 +1,16 @@
 function createTiles() {
 
-    const topLeft   = [0,0,2,0,1,2,1,1,tileCanvas.context.getImageData(00, 00, 16, 16)];
-    const topCenter = [2,0,2,1,1,1,1,1,tileCanvas.context.getImageData(16, 00, 16, 16)];
-    const topRight  = [2,0,0,1,0,1,1,2,tileCanvas.context.getImageData(32, 00, 16, 16)];
-    const midLeft   = [2,1,1,0,1,2,1,1,tileCanvas.context.getImageData(00, 16, 16, 16)];
+    const topLeft   = [0,0,2,0,1,2,1,1,tileCanvas.context.getImageData( 0,  0, 16, 16)];
+    const topCenter = [2,0,2,1,1,1,1,1,tileCanvas.context.getImageData(16,  0, 16, 16)];
+    const topRight  = [2,0,0,1,0,1,1,2,tileCanvas.context.getImageData(32,  0, 16, 16)];
+    const midLeft   = [2,1,1,0,1,2,1,1,tileCanvas.context.getImageData( 0, 16, 16, 16)];
     const midCenter = [1,1,1,1,1,1,1,1,tileCanvas.context.getImageData(16, 16, 16, 16)];
     const midRight  = [1,1,2,1,0,1,1,2,tileCanvas.context.getImageData(32, 16, 16, 16)];
-    const botLeft   = [2,1,1,0,1,0,0,2,tileCanvas.context.getImageData(00, 32, 16, 16)];
+    const botLeft   = [2,1,1,0,1,0,0,2,tileCanvas.context.getImageData( 0, 32, 16, 16)];
     const botCenter = [1,1,1,1,1,2,0,2,tileCanvas.context.getImageData(16, 32, 16, 16)];
     const botRight  = [1,1,2,1,0,2,0,0,tileCanvas.context.getImageData(32, 32, 16, 16)];
-    const innerTopLeft  = [1,1,1,1,1,1,1,0,tileCanvas.context.getImageData(48, 00, 16, 16)];
-    const innerTopRight = [1,1,1,1,1,0,1,1,tileCanvas.context.getImageData(64, 00, 16, 16)];
+    const innerTopLeft  = [1,1,1,1,1,1,1,0,tileCanvas.context.getImageData(48,  0, 16, 16)];
+    const innerTopRight = [1,1,1,1,1,0,1,1,tileCanvas.context.getImageData(64,  0, 16, 16)];
     const innerBotLeft  = [1,1,0,1,1,1,1,1,tileCanvas.context.getImageData(48, 16, 16, 16)];
     const innerBotRight = [0,1,1,1,1,1,1,1,tileCanvas.context.getImageData(64, 16, 16, 16)];
 
@@ -30,7 +30,7 @@ function createTiles() {
         innerBotRight,0
     ];
 
-    const greenTile = tileCanvas.context.getImageData(160, 00, 16, 16);
+    const greenTile = tileCanvas.context.getImageData(160, 0, 16, 16);
 
     const mapArray = [];
 

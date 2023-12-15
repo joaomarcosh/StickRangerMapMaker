@@ -11,17 +11,21 @@
   </head>
 
   <body>
-    <div id="esquerda">
-      <div id="esquerdaSuperior">
+    <div id="left">
+      <div id="leftSuperior">
         <div id="canvasSize">
           <h2>Canvas Size</h2>
           <div id="sizeInputs">
-            <label for="tileOrPixel">Dimensions in tiles</label><br>
-            <input type="checkbox" id="tileOrPixel" name="tileOrPixel" autocomplete="off"><br>
+            <p>tiles</p>
+            <label class="switch" for="tileOrPixel">
+              <input type="checkbox" id="tileOrPixel" name="tileOrPixel" autocomplete="off">
+              <span class="slider round"></span>
+            </label>
+            <p>pixels</p><br>
             <label for="mapCanvasW">Width:</label><br>
-            <input type="number" id="mapCanvasW" name="mapCanvasW" value="992" autocomplete="off"><p> pixels</p><br>
+            <input type="number" id="mapCanvasW" name="mapCanvasW" value="62" autocomplete="off"><p> tiles</p><br>
             <label for="mapCanvasH">Height:</label><br>
-            <input type="number" id="mapCanvasH" name="mapCanvasH" value="320" autocomplete="off"><p> pixels</p><br>
+            <input type="number" id="mapCanvasH" name="mapCanvasH" value="20" autocomplete="off"><p> tiles</p><br>
           </div>
         </div>
         <div id="submitFiles">
@@ -45,25 +49,25 @@
           <label for="bothRadio">Both (erase only)</label>
         </div>
       </div>
-      <div id="esquerdaCanvas">
+      <div id="leftCanvas">
         <canvas id="mapCanvas" width="992px" height="320px"></canvas>
+        <canvas id="colorCanvas" width="992px" height="320px"></canvas>
         <canvas id="topCanvas" width="992px" height="320px"></canvas>
         <canvas id="gridCanvas" width="992px" height="320px"></canvas>
-        <canvas id="colorCanvas" width="992px" height="320px"></canvas>
       </div>
-      <div id="esquerdaInferior">
+      <div id="leftInferior">
         <button id="mapDownload">Export Bottom Layer</button>
         <button id="topDownload">Export Top Layer</button>
         <button id="fullDownload">Export Full Map</button>
       </div>
     </div> 
-    <div id="direita">
-      <div id="direitaSuperior">
+    <div id="right">
+      <div id="rightSuperior">
         <label for="alternateGrid">Alternate Grid</label><br>
         <input type="checkbox" id="alternateGrid" name="alternateGrid" autocomplete="off"><br>
         <input type="file" accept="image/*" id="tileFile" name="tilefile">
       </div>
-      <div id="direitaCanvas">
+      <div id="rightCanvas">
         <canvas id="tileCanvas" width="192px" height="400px"></canvas>
         <canvas id="tileGridCanvas" width="192px" height="400px"></canvas>
       </div>

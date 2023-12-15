@@ -21,8 +21,7 @@ gridCanvas.canvas.addEventListener('mousemove', function(event) {
         createTiles();
     }
     let {x,y} = getMousePos(gridCanvas,event);
-    gridCanvas.context.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
-    gridCanvas.context.putImageData(gridCanvas.content,0,0);
+    gridCanvas.drawGrid();
     gridCanvas.drawRedBox(x,y);
 });
 
@@ -70,7 +69,7 @@ $("#tileOrPixel").addEventListener("click", function(event) {
 });
 
 $("#alternateGrid").addEventListener("click", function(event) {
-    gridCanvas.changeGrid((!gridCanvas.offsetX)*-8,(!gridCanvas.offsetX)*-8);
+    gridCanvas.changeGrid();
 });
 
 $("#mapDownload").addEventListener("click", function(event) {

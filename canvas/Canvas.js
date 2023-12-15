@@ -2,7 +2,7 @@ class Canvas {
 
     constructor(canvasElement) {
         this.canvas = canvasElement;
-        this.context = this.canvas.getContext("2d");
+        this.context = this.canvas.getContext("2d", { willReadFrequently: true });
         this.content = this.context.getImageData(0, 0, this.width, this.height);
     }
 
