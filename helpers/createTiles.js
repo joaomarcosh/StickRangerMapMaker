@@ -34,7 +34,7 @@ function createTiles() {
 
     const mapArray = [];
 
-    const allPixels = mapCanvas.context.getImageData(0,0,mapCanvas.width,mapCanvas.height);
+    const allPixels = colorCanvas.context.getImageData(0,0,mapCanvas.width,mapCanvas.height);
 
     for (x=0;x<mapCanvas.width;x+=16) {
         mapArray[x/16] = [];
@@ -82,12 +82,12 @@ function createTiles() {
                 }
 
                 if (!empty) {
-                    colorCanvas.context.putImageData(tile[8],x*16,y*16)
+                    mapCanvas.context.putImageData(tile[8],x*16,y*16)
                     break;
                 } 
             }
 
-            if(empty) colorCanvas.context.putImageData(greenTile,x*16,y*16);
+            if(empty) mapCanvas.context.putImageData(greenTile,x*16,y*16);
         }
     }
 }

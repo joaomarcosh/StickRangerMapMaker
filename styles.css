@@ -38,15 +38,15 @@ p {
   max-width: 75vw;
 }
 
-#mapCanvas {
+#colorCanvas {
   border:1px solid #000000;
   
   top: 0;
   left: 0;
 }
 
-#colorCanvas {
-  border:1px solid #FF0000;
+#mapCanvas {
+  border:1px solid #000000;
   position: absolute;
   top: 0;
   left: 0;

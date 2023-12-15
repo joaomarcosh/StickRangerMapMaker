@@ -2,6 +2,7 @@ function place(event) {
     let {x,y} = getMousePos(gridCanvas,event);
     if ($("#drawRadio").checked) {
         if ($("#bottomRadio").checked) {
+            colorCanvas.paintTile(selectedTile,x,y);
             mapCanvas.paintTile(selectedTile,x,y);
         }
         else if ($("#topRadio").checked) {

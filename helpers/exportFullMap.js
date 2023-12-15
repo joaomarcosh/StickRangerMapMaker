@@ -6,12 +6,12 @@ function exportFullMap() {
     gridCanvas.setContent();
     const arraySize = gridCanvas.width * gridCanvas.height * 4;
     for (let i=0;i<arraySize;i+=4) {
-        if (colorCanvas.content.data[i+3]!==0) {
+        /*if (colorCanvas.content.data[i+3]!==0) {
             gridCanvas.content.data[i] = colorCanvas.content.data[i];
             gridCanvas.content.data[i+1] = colorCanvas.content.data[i+1];
             gridCanvas.content.data[i+2] = colorCanvas.content.data[i+2];
             gridCanvas.content.data[i+3] = colorCanvas.content.data[i+3];
-        }
+        }*/
         if (topCanvas.content.data[i+3]!==0) {
             gridCanvas.content.data[i] = topCanvas.content.data[i];
             gridCanvas.content.data[i+1] = topCanvas.content.data[i+1];
