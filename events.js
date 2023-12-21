@@ -1,6 +1,17 @@
 tileGridCanvas.canvas.addEventListener('click', function(event) {
     let {x,y} = getMousePos(tileCanvas,event);
     selectedTile = tileCanvas.pickTile(x,y);
+
+    if (x===160 && y===0) {
+        selectedAutotile = green1;
+    } else if (x===160 && y===16) {
+        selectedAutotile = green2;
+    } else if (x===160 && y===32) {
+        selectedAutotile = green3;
+    } else {
+        selectedAutotile = 0;
+    }
+
     tileGridCanvas.context.clearRect(0,0,tileGridCanvas.width,tileGridCanvas.height);
     tileGridCanvas.drawRedBox(x,y);
 });
@@ -64,12 +75,12 @@ baseTileSet.addEventListener("load", function() {
     tileGridCanvas.drawRedBox();
 });
 
-$("#tileOrPixel").addEventListener("click", function(event) {
-    fixNumber();
-});
-
 $("#alternateGrid").addEventListener("click", function(event) {
     gridCanvas.changeGrid();
+});
+
+$("#previewMode").addEventListener("click", function(event) {
+    $("#mapCanvas").classList.toggle("hidden");
 });
 
 $("#mapDownload").addEventListener("click", function(event) {

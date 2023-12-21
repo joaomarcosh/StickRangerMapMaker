@@ -51,6 +51,12 @@ class Canvas {
         this.context.putImageData(tile,x,y);
     }
 
+    fillTile(x,y,color='black') {
+        this.context.beginPath();
+        this.context.fillStyle = color;
+        this.context.fillRect(x+0.5, y+0.5, 15.5, 15.5)
+    }
+
     setContent() {
         this.content = this.context.getImageData(0, 0, this.width, this.height);
     }

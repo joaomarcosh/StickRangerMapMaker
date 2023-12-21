@@ -16,12 +16,6 @@
         <div id="canvasSize">
           <h2>Canvas Size</h2>
           <div id="sizeInputs">
-            <p>tiles</p>
-            <label class="switch" for="tileOrPixel">
-              <input type="checkbox" id="tileOrPixel" name="tileOrPixel" autocomplete="off">
-              <span class="slider round"></span>
-            </label>
-            <p>pixels</p><br>
             <label for="mapCanvasW">Width:</label><br>
             <input type="number" id="mapCanvasW" name="mapCanvasW" value="62" autocomplete="off"><p> tiles</p><br>
             <label for="mapCanvasH">Height:</label><br>
@@ -63,6 +57,8 @@
     </div> 
     <div id="right">
       <div id="rightSuperior">
+        <label for="previewMode">Preview Mode</label><br>
+        <input type="checkbox" id="previewMode" name="previewMode" autocomplete="off" checked><br>
         <label for="alternateGrid">Alternate Grid</label><br>
         <input type="checkbox" id="alternateGrid" name="alternateGrid" autocomplete="off"><br>
         <input type="file" accept="image/*" id="tileFile" name="tilefile">
@@ -72,8 +68,8 @@
         <canvas id="tileGridCanvas" width="192px" height="400px"></canvas>
       </div>
     </div>
+    <script src="helpers/autotiles.js"></script>
     <script src="helpers/createTiles.js"></script>
-    <script src="helpers/fixNumber.js"></script>
     <script src="helpers/changeCanvasSize.js"></script>
     <script src="helpers/exportFullMap.js"></script>
     <script src="helpers/loadFile.js"></script>
