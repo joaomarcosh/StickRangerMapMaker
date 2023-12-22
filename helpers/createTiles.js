@@ -30,9 +30,6 @@ function createTiles() {
         innerBotRight,
     ];
 
-    let tileArray;
-    let tileNumberArray;
-
     for (let y=0; y<mapArray[0].length; y++) {
 
         for (let x=0; x<mapArray.length; x++) {
@@ -93,6 +90,4 @@ function createTiles() {
             if(empty) mapCanvas.fillTile(x*16,y*16,selectedAutotile.color);
         }
     }
-    console.log(tileArray);
-    console.log(tileNumberArray);
 }
