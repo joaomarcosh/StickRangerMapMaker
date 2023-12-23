@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    border:none;
+}
+
+body {
+    height: 100vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color:#333;
+    box-sizing: border-box;
+    color: #eee;
+}
+
+#top {
+    min-height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    font-size: 0.85rem;
+}
+
+#top > * {
+    flex: 1;
+}
+
+#submitFiles {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#submitFiles label {
+    padding: 7px 6px;
+    width: 150px;
+    background-color: #333;
+    text-align: center;
+    font-size: 0.75rem;
+    display: block;
+    cursor: pointer;
+    border: 2px solid #999;
+    text-transform: uppercase;
+}
+
+#submitFiles label:hover {
+    background-color: #666;
+}
+
+#submitFiles input {
+    display: none;
+}
+
+#canvasSize {
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+#canvasSize h2 {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#sizeInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 12px;
+}
+
+#sizeInputs label {
+    display: inline;
+}
+
+#sizeInputs input {
+    width: 40px;
+    color: #eee;
+    background-color: #555;
+}
+
+#drawSettings {
+    text-align: center;
+}
+
+#drawSettings h2 {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#drawSettings p {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+#modeButtons, #layerButtons {
+    display: flex;
+    justify-content: center;
+}
+
+#drawSettings input {
+    display: none;
+}
+
+#drawSettings label {
+    width: 32px;
+    height: 32px;
+}
+
+:checked + label img {
+    box-shadow: 0px 0px 0px 1px red;
+}
+
+#exportButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: end;
+}
+
+#exportButtons button {
+    padding: 7px 4px;
+    width: 160px;
+    background-color: #333;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 0.75rem;
+    display: block;
+    cursor: pointer;
+    color: #eee;
+    border: 2px solid #999;
+    text-transform: uppercase;
+}
+
+#exportButtons button:hover {
+    background-color: #666;
+}
+
+#mid {
+    flex: 1 0 320px;
+    display: flex;
+    background-color: #555;
+    padding: 16px 16px;
+}
+
+#midLeft {
+    background-color: black;
+    min-width: 176px;
+    flex: 0 0 176px;
+    position: relative;
+}
+
+#tileCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#tileGridCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#midRight {
+    flex: 8;
+    position: relative;
+    overflow: auto;
+}
+
+
+#colorCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#mapCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#topCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#gridCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#bot {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.hidden {
+    display: none;
+}

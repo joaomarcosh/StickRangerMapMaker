@@ -60,11 +60,11 @@ $("#mapCanvasH").addEventListener("keydown", function(event) {
     if (event.key === "Enter") changeCanvasSize();
 });
 
-$("#mapCanvasW").addEventListener("blur", function(event) {
+$("#mapCanvasW").addEventListener("blur", function() {
     changeCanvasSize();
 });
 
-$("#mapCanvasH").addEventListener("blur", function(event) {
+$("#mapCanvasH").addEventListener("blur", function() {
     changeCanvasSize();
 });
 
@@ -75,22 +75,34 @@ baseTileSet.addEventListener("load", function() {
     tileGridCanvas.drawRedBox();
 });
 
-$("#alternateGrid").addEventListener("click", function(event) {
+$("#alternateGrid").addEventListener("click", function() {
     gridCanvas.changeGrid();
 });
 
-$("#previewMode").addEventListener("click", function(event) {
+$("#previewMode").addEventListener("click", function() {
     $("#mapCanvas").classList.toggle("hidden");
 });
 
-$("#mapDownload").addEventListener("click", function(event) {
+$("#mapDownload").addEventListener("click", function() {
     mapCanvas.download('bottom');
 });
 
-$("#topDownload").addEventListener("click", function(event) {
-    topCanvas.download('bottom');
+$("#topDownload").addEventListener("click", function() {
+    topCanvas.download('top');
 });
 
-$("#fullDownload").addEventListener("click", function(event) {
+$("#fullDownload").addEventListener("click", function() {
     exportFullMap();
+});
+
+$("#drawRadio").addEventListener("click", function() {
+    if ($("#bothRadio").checked) {
+        $("#bothRadio").checked = false;
+        $("#bottomRadio").checked = true;
+    }
+    $("#bothRadio").disabled = true;
+});
+
+$("#eraseRadio").addEventListener("click", function() {
+    $("#bothRadio").disabled = false;
 });

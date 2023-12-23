@@ -17,7 +17,7 @@ const emptyMapTile = mapCanvas.context.getImageData(0, 0, 16, 16);
 const emptyTopTile = tileCanvas.context.getImageData(0, 0, 16, 16);
 
 const baseTileSet = new Image();
-baseTileSet.src = "./images/mt5.png";
+baseTileSet.src = "./images/mt7.png";
 
 gridCanvas.drawGrid();
 gridCanvas.setContent();

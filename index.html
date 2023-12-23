@@ -1,73 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-
+<head>
+    <meta charset="UTF-8">
     <title>Stick Ranger Map Maker</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.29.0/js/canvas-to-blob.min.js"></script>
-  </head>
-
-  <body>
-    <div id="left">
-      <div id="leftSuperior">
-        <div id="canvasSize">
-          <h2>Canvas Size</h2>
-          <div id="sizeInputs">
-            <label for="mapCanvasW">Width:</label><br>
-            <input type="number" id="mapCanvasW" name="mapCanvasW" value="62" autocomplete="off"><p> tiles</p><br>
-            <label for="mapCanvasH">Height:</label><br>
-            <input type="number" id="mapCanvasH" name="mapCanvasH" value="20" autocomplete="off"><p> tiles</p><br>
-          </div>
-        </div>
+</head>
+<body>
+    <div id="top">
         <div id="submitFiles">
-          <h2>Use image as Bottom Layer</h2>
-          <input type="file" accept="image/*" id="bottomFile" name="bottomfile">
-          <h2>Use image as Top Layer</h2>
-          <input type="file" accept="image/*" id="topFile" name="topfile">
+            <label for="tileFile">Upload Tileset</label>
+            <input type="file" accept="image/*" id="tileFile" name="tilefile" placeholder="test">
+            <label for="bottomFile">Upload Bottom Layer</label>
+            <input type="file" accept="image/*" id="bottomFile" name="bottomfile">
+            <label for="topFile">Upload Top Layer</label>
+            <input type="file" accept="image/*" id="topFile" name="topfile">
+        </div>
+        <div id="canvasSize">
+            <h2>MAP SETTINGS</h2>
+            <div id="sizeInputs">
+                <div>
+                    <label for="mapCanvasW">Width:</label>
+                    <input type="number" id="mapCanvasW" name="mapCanvasW" value="62" autocomplete="off">
+                </div>
+                <div>
+                    <label for="mapCanvasH">Height:</label>
+                    <input type="number" id="mapCanvasH" name="mapCanvasH" value="20" autocomplete="off">
+                </div>
+            </div>
+            <div>
+                <label for="previewMode">Preview Mode</label>
+                <input type="checkbox" id="previewMode" name="previewMode" autocomplete="off" checked>
+            </div>
+            <div>
+                <label for="alternateGrid">Offset Grid</label>
+                <input type="checkbox" id="alternateGrid" name="alternateGrid" autocomplete="off">
+            </div>
         </div>
         <div id="drawSettings">
-          <div id="drawButtons">
-            <input type="radio" id="drawRadio" name="buttonRadio" checked="checked">
-            <label for="drawRadio">Draw</label><br>
-            <input type="radio" id="deleteRadio" name="buttonRadio">
-            <label for="deleteRadio">Erase</label>
-          </div>
-          <input type="radio" id="bottomRadio" name="settingRadio" checked="checked">
-          <label for="bottomRadio">Bottom Layer</label><br>
-          <input type="radio" id="topRadio" name="settingRadio">
-          <label for="topRadio">Top Layer</label><br>
-          <input type="radio" id="bothRadio" name="settingRadio">
-          <label for="bothRadio">Both (erase only)</label>
+            <h2>DRAW SETTINGS</h2>
+            <p>Mode</p>
+            <div id="modeButtons">
+                <input type="radio" id="drawRadio" name="buttonRadio" checked="checked">
+                <label for="drawRadio"><img src="./images/pencil.png" /></label>
+                <input type="radio" id="eraseRadio" name="buttonRadio">
+                <label for="eraseRadio"><img src="./images/eraser.png" /></label>
+            </div>
+            <p>Layer</p>
+            <div id="layerButtons">
+                <input type="radio" id="bottomRadio" name="settingRadio" checked="checked">
+                <label for="bottomRadio"><img src="./images/bottom.png" /></label>
+                <input type="radio" id="topRadio" name="settingRadio">
+                <label for="topRadio"><img src="./images/top.png" /></label>
+                <input type="radio" id="bothRadio" name="settingRadio" disabled>
+                <label for="bothRadio"><img src="./images/both.png" /></label>
+            </div>
         </div>
-      </div>
-      <div id="leftCanvas">
-        <canvas id="colorCanvas" width="992px" height="320px"></canvas>
-        <canvas id="mapCanvas" width="992px" height="320px"></canvas>
-        <canvas id="topCanvas" width="992px" height="320px"></canvas>
-        <canvas id="gridCanvas" width="992px" height="320px"></canvas>
-      </div>
-      <div id="leftInferior">
-        <button id="mapDownload">Export Bottom Layer</button>
-        <button id="topDownload">Export Top Layer</button>
-        <button id="fullDownload">Export Full Map</button>
-      </div>
-    </div> 
-    <div id="right">
-      <div id="rightSuperior">
-        <label for="previewMode">Preview Mode</label><br>
-        <input type="checkbox" id="previewMode" name="previewMode" autocomplete="off" checked><br>
-        <label for="alternateGrid">Alternate Grid</label><br>
-        <input type="checkbox" id="alternateGrid" name="alternateGrid" autocomplete="off"><br>
-        <input type="file" accept="image/*" id="tileFile" name="tilefile">
-      </div>
-      <div id="rightCanvas">
-        <canvas id="tileCanvas" width="192px" height="400px"></canvas>
-        <canvas id="tileGridCanvas" width="192px" height="400px"></canvas>
-      </div>
+        <div id="exportButtons">
+            <button id="mapDownload">Export Bottom Layer</button>
+            <button id="topDownload">Export Top Layer</button>
+            <button id="fullDownload">Export Full Map</button>
+        </div>
     </div>
+
+    <div id="mid">
+        <div id="midLeft">
+            <canvas id="tileCanvas" width="176px" height="320px"></canvas>
+            <canvas id="tileGridCanvas" width="176px" height="320px"></canvas>
+        </div>
+        <div style="width:16px"></div>
+        <div id="midRight">
+            <canvas id="colorCanvas" width="992px" height="320px"></canvas>
+            <canvas id="mapCanvas" width="992px" height="320px"></canvas>
+            <canvas id="topCanvas" width="992px" height="320px"></canvas>
+            <canvas id="gridCanvas" width="992px" height="320px"></canvas>
+        </div>
+    </div>
+
+    <div id="bot">
+        <span>Made by: joaomarcosh</span>
+        <a href="https://github.com/joaomarcosh/StickRangerMapMaker" target=”_blank”>
+            <img style="width:32px;height:32px" src="./images/github.png" /
+        ></a>
+    </div>
+
     <script src="helpers/autotiles.js"></script>
     <script src="helpers/createTiles.js"></script>
     <script src="helpers/changeCanvasSize.js"></script>
@@ -79,5 +98,5 @@
     <script src="canvas/GridCanvas.js"></script>
     <script src="index.js"></script>
     <script src="events.js"></script>
-  </body>
+</body>
 </html>
